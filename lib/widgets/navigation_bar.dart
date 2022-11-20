@@ -44,17 +44,20 @@ class _MacskaMatchNavigationBarState extends State<MacskaMatchNavigationBar> {
           ),
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.clear),
+              activeIcon: Icon(Icons.clear),
+              icon: Icon(Icons.clear_outlined),
               label: 'Disliked',
               tooltip: '',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              activeIcon: Icon(Icons.home),
+              icon: Icon(Icons.home_outlined),
               label: 'Home',
               tooltip: '',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
+              activeIcon: Icon(Icons.favorite),
+              icon: Icon(Icons.favorite_outline),
               label: 'Liked',
               tooltip: '',
             ),

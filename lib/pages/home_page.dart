@@ -23,9 +23,10 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 10),
+            margin: EdgeInsets.symmetric(horizontal: 20),
             child: Card(
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
+              elevation: 7,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -60,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.all(40.0),
                     child: Row(
                       children: [
-                        Spacer(flex: 4),
+                        Spacer(flex: 10),
                         LikeDislikeButton(
                           color: Color.fromRGBO(255, 129, 166, 1),
                           icon: Icons.favorite,
@@ -78,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                             catService.addToDisliked(currentCat!);
                           },
                         ),
-                        Spacer(flex: 4),
+                        Spacer(flex: 10),
                       ],
                     ),
                   ),
@@ -86,13 +87,15 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+          Spacer(),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 60),
-            margin: EdgeInsets.only(top: 30),
+            padding: EdgeInsets.symmetric(horizontal: 70),
             child: Text('To like a picture of a cat click on the heart icon, or swipe right',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Color.fromRGBO(142, 142, 142, 1),
+                  fontWeight: FontWeight.w400,
+                  fontSize: 18,
                 )),
           ),
           Spacer(),

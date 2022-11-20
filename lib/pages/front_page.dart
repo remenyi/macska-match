@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:macska_match/pages/disliked_page.dart';
 import 'package:macska_match/pages/home_page.dart';
 import 'package:macska_match/pages/liked_page.dart';
@@ -18,11 +19,7 @@ class FrontPage extends StatelessWidget {
         shadowColor: Colors.transparent,
         flexibleSpace: Container(),
         centerTitle: true,
-        title: const Icon(
-          Icons.accessibility_new_sharp,
-          color: Colors.pink,
-          size: 50,
-        ),
+        title: SvgPicture.asset('assets/logo.svg'),
       ),
       body: Navigator(
           key: _navigatorKey,

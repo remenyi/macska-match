@@ -22,13 +22,13 @@ class LikeDislikeButton extends StatelessWidget {
           width: 3,
           color: color,
         ),
-        padding: EdgeInsets.all(12),
+        padding: EdgeInsets.all(10),
       ),
       onPressed: onPressed,
       child: Icon(
         icon,
         color: color,
-        size: 40,
+        size: 35,
       ),
     );
   }

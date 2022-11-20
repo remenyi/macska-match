@@ -16,8 +16,8 @@ class LikedPage extends StatelessWidget {
             'Liked cats',
             style: TextStyle(
               color: Color.fromRGBO(255, 111, 127, 1),
-              fontSize: 35,
-              fontWeight: FontWeight.bold,
+              fontSize: 28,
+              fontWeight: FontWeight.w800,
             ),
           ),
         ),
