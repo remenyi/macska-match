@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:macska_match/pages/liked_page.dart';
 
 import 'pages/front_page.dart';
 import 'widgets/navigation_bar.dart';
@@ -23,16 +24,10 @@ class MacskaMatch extends StatelessWidget {
       ),
       child: MaterialApp(
         theme: ThemeData(
-          primaryColor: Color.fromRGBO(255, 129, 166, 1),
+          primarySwatch: Colors.pink,
           fontFamily: 'Poppins',
         ),
-        home: Scaffold(
-          body: SafeArea(
-            child: FrontPage(),
-          ),
-          backgroundColor: Colors.transparent,
-          bottomNavigationBar: MacskaMatchNavigationBar(),
-        ),
+        home: FrontPage(),
       ),
     );
   }
