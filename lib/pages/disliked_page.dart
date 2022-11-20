@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:macska_match/services/cat_service.dart';
 
 class DislikedPage extends StatelessWidget {
-  const DislikedPage({Key? key}) : super(key: key);
+  DislikedPage({Key? key}) : super(key: key);
+  final catService = GetIt.instance<CatService>();
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +24,7 @@ class DislikedPage extends StatelessWidget {
         Expanded(
           child: ListView.builder(
             shrinkWrap: true,
-            itemCount: 4,
+            itemCount: catService.dislikedCats.length,
             itemBuilder: (context, index) {
               return Container(
                 margin: EdgeInsets.symmetric(horizontal: 10),
@@ -34,7 +37,7 @@ class DislikedPage extends StatelessWidget {
                         borderRadius: BorderRadius.all(
                           Radius.circular(20.0),
                         ),
-                        child: Image.network('https://placeimg.com/640/480/any',
+                        child: Image.memory(catService.dislikedCats[index],
                             // width: 300,
                             height: 200,
                             fit: BoxFit.cover),

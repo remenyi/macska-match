@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:macska_match/pages/liked_page.dart';
+import 'package:get_it/get_it.dart';
+import 'package:macska_match/services/cat_service.dart';
 
 import 'pages/front_page.dart';
-import 'widgets/navigation_bar.dart';
 
 void main() {
+  setup();
   runApp(const MacskaMatch());
+}
+
+void setup() {
+  GetIt.instance.registerSingleton<CatService>(CatService());
 }
 
 class MacskaMatch extends StatelessWidget {

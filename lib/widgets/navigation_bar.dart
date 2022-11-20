@@ -25,6 +25,7 @@ class _MacskaMatchNavigationBarState extends State<MacskaMatchNavigationBar> {
         ),
         child: BottomNavigationBar(
           currentIndex: widget._currentTabIndex,
+          elevation: 10,
           backgroundColor: Color.fromRGBO(255, 129, 166, 1),
           fixedColor: Colors.white,
           unselectedItemColor: Colors.grey.shade300,

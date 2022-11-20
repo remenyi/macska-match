@@ -1,11 +1,24 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:macska_match/services/cat_service.dart';
 import 'package:macska_match/widgets/like_dislike_button.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final catService = GetIt.instance<CatService>();
+
+  @override
   Widget build(BuildContext context) {
+    late Uint8List currentCat;
+
     return SafeArea(
       child: Column(
         children: [
@@ -20,10 +33,28 @@ class HomePage extends StatelessWidget {
                     borderRadius: BorderRadius.all(
                       Radius.circular(20.0),
                     ),
-                    child: Image.network('https://placeimg.com/640/480/any',
-                        // width: 300,
-                        height: 350,
-                        fit: BoxFit.fill),
+                    child: FutureBuilder<Uint8List>(
+                        future: catService.getRandomCat(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            currentCat = snapshot.data!;
+                            return Image.memory(
+                              snapshot.data!,
+                              height: 350,
+                              fit: BoxFit.cover,
+                            );
+                          }
+                          return Container(
+                            height: 350,
+                            child: Center(
+                              child: SizedBox(
+                                width: 50,
+                                height: 50,
+                                child: CircularProgressIndicator(),
+                              ),
+                            ),
+                          );
+                        }),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(40.0),
@@ -33,11 +64,19 @@ class HomePage extends StatelessWidget {
                         LikeDislikeButton(
                           color: Color.fromRGBO(255, 129, 166, 1),
                           icon: Icons.favorite,
+                          onPressed: () {
+                            catService.addToLiked(currentCat!);
+                            setState(() {});
+                          },
                         ),
                         Spacer(flex: 1),
                         LikeDislikeButton(
                           color: Color.fromRGBO(142, 142, 142, 1),
                           icon: Icons.close,
+                          onPressed: () {
+                            setState(() {});
+                            catService.addToDisliked(currentCat!);
+                          },
                         ),
                         Spacer(flex: 4),
                       ],

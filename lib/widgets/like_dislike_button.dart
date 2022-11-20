@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class LikeDislikeButton extends StatelessWidget {
   final IconData icon;
   final Color color;
+  final void Function() onPressed;
 
   const LikeDislikeButton({
     Key? key,
     required this.icon,
     required this.color,
+    required this.onPressed,
   }) : super(key: key);
 
   @override
@@ -22,7 +24,7 @@ class LikeDislikeButton extends StatelessWidget {
         ),
         padding: EdgeInsets.all(12),
       ),
-      onPressed: () {},
+      onPressed: onPressed,
       child: Icon(
         icon,
         color: color,
