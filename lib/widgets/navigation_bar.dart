@@ -37,8 +37,7 @@ class _MacskaMatchNavigationBarState extends State<MacskaMatchNavigationBar> {
           selectedIconTheme: IconThemeData(
             size: 40,
           ),
-          unselectedLabelStyle: TextStyle(
-          ),
+          unselectedLabelStyle: TextStyle(),
           selectedLabelStyle: TextStyle(
             fontWeight: FontWeight.bold,
           ),

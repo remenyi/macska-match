@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:macska_match/pages/disliked_page.dart';
-import 'package:macska_match/pages/home_page.dart';
-import 'package:macska_match/pages/liked_page.dart';
+import 'package:macska_match/di/di.dart';
+import 'package:macska_match/pages/disliked_page/disliked_page.dart';
+import 'package:macska_match/pages/home_page/home_page.dart';
+import 'package:macska_match/pages/home_page/random_cat_bloc.dart';
+import 'package:macska_match/pages/liked_page/liked_page.dart';
 import 'package:macska_match/widgets/navigation_bar.dart';
 
 class FrontPage extends StatelessWidget {

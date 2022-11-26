@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get_it/get_it.dart';
-import 'package:macska_match/services/cat_service.dart';
+import 'package:macska_match/di/di.dart';
 
 import 'pages/front_page.dart';
 
 void main() {
-  setup();
+  initDependencies();
   runApp(const MacskaMatch());
-}
-
-void setup() {
-  GetIt.instance.registerSingleton<CatService>(CatService());
 }
 
 class MacskaMatch extends StatelessWidget {
@@ -22,22 +17,35 @@ class MacskaMatch extends StatelessWidget {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          stops: const [0.3, 0.5],
-          colors: [Color.fromRGBO(255, 220, 239, 1), Colors.white],
-        ),
-      ),
-      child: MaterialApp(
-        theme: ThemeData(
-          primarySwatch: Colors.pink,
-          fontFamily: 'Poppins',
-        ),
-        home: FrontPage(),
-      ),
+    return FutureBuilder(
+      future: injector.allReady(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                stops: const [0.3, 0.5],
+                colors: [Color.fromRGBO(255, 220, 239, 1), Colors.white],
+              ),
+            ),
+            child: MaterialApp(
+              theme: ThemeData(
+                primarySwatch: Colors.pink,
+                fontFamily: 'Poppins',
+              ),
+              home: FrontPage(),
+            ),
+          );
+        }
+        return Container(
+          color: Colors.pinkAccent,
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
     );
   }
 }
