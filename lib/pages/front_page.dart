@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:macska_match/pages/disliked_page/disliked_page.dart';
+import 'package:macska_match/pages/cat_view_page/cat_view_page.dart';
 import 'package:macska_match/pages/home_page/home_page.dart';
-import 'package:macska_match/pages/liked_page/liked_page.dart';
-import 'package:macska_match/widgets/navigation_bar.dart';
+import 'package:macska_match/pages/navigation_bar.dart';
 
 class FrontPage extends StatefulWidget {
   const FrontPage({Key? key}) : super(key: key);
@@ -13,8 +12,20 @@ class FrontPage extends StatefulWidget {
 }
 
 class _FrontPageState extends State<FrontPage> {
-  final pageController = PageController(initialPage: 1, keepPage: true);
+  late final PageController pageController;
   int currentTabIndex = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    pageController = PageController(initialPage: 1, keepPage: true);
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +48,13 @@ class _FrontPageState extends State<FrontPage> {
           });
         },
         children: const [
-          DislikedPage(),
+          CatsViewPage(
+            catsViewType: CatsViewType.disliked,
+          ),
           HomePage(),
-          LikedPage(),
+          CatsViewPage(
+            catsViewType: CatsViewType.liked,
+          ),
         ],
       ),
       backgroundColor: Colors.transparent,

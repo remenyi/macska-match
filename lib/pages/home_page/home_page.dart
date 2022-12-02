@@ -3,11 +3,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:macska_match/di/di.dart';
-import 'package:macska_match/helpers/missing_content.dart';
-import 'package:macska_match/helpers/popup.dart';
-import 'package:macska_match/helpers/retry_button.dart';
 import 'package:macska_match/pages/home_page/random_cat_bloc.dart';
-import 'package:macska_match/widgets/like_dislike_button.dart';
+import 'package:macska_match/pages/home_page/widgets/like_dislike_button.dart';
+import 'package:macska_match/widgets/missing_content.dart';
+import 'package:macska_match/widgets/popup.dart';
+import 'package:macska_match/widgets/retry_button.dart';
 import 'package:swipable_stack/swipable_stack.dart';
 
 class HomePage extends StatefulWidget {

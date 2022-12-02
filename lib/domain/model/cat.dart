@@ -10,7 +10,6 @@ class Cat extends Equatable {
     required this.picture,
   }) {
     _hash = String.fromCharCodes(picture);
-
   }
 
   @override

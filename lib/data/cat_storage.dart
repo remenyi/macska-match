@@ -6,7 +6,7 @@ import 'package:macska_match/domain/model/cat_uri_model.dart';
 class CatStorage {
   static const _likedCatPath = 'liked_cats/';
   static const _dislikedCatPath = 'disliked_cats/';
-  static const _maxSize = 1024 * 1024 * 100;           // 10 megabytes, allows to download large files
+  static const _maxSize = 1024 * 1024 * 100; // 10 megabytes, allows to download large files
 
   Future<CatUriModel> saveToLiked(Cat cat) async => await _saveCat(cat, '$_likedCatPath${cat.picture.hashCode}');
 
@@ -14,7 +14,7 @@ class CatStorage {
 
   Future<Cat> getCat(CatUriModel catUriModel) async {
     final catRef = FirebaseStorage.instance.refFromURL(catUriModel.uri);
-    final data = await catRef.getData(_maxSize).timeout(const Duration(seconds: 5));
+    final data = await catRef.getData(_maxSize);
 
     if (data == null) throw NullThrownError();
 
@@ -27,7 +27,7 @@ class CatStorage {
     final catRef = FirebaseStorage.instance.ref(location);
     await catRef.putData(
       cat.picture,
-    ).timeout(const Duration(seconds: 5));
+    );
     final uri = await catRef.getDownloadURL();
     return CatUriModel(uri: uri, timestamp: Timestamp.now());
   }
