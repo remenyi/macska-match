@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "74515477085",
+    "project_id": "macskamatch",
+    "storage_bucket": "macskamatch.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:74515477085:android:8d8f5d03ae211553d093b4",
+        "android_client_info": {
+          "package_name": "com.example.macska_match"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "74515477085-mnbavfr2v7krq72afut1ef76btta0dv9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJGvN_mS8b10pi6rGQQrAemaLQp49caNY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "74515477085-mnbavfr2v7krq72afut1ef76btta0dv9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "74515477085-oubs3nnjh6d5p83ebg88tn7jjno5l2ji.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.macskaMatch"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

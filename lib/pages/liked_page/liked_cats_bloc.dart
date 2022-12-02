@@ -2,9 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:macska_match/domain/interactors/cat_interactor.dart';
 import 'package:macska_match/domain/model/cat.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/foundation.dart';
 
 part 'liked_cats_event.dart';
+
 part 'liked_cats_state.dart';
 
 class LikedCatsBloc extends Bloc<LikedCatsEvent, LikedCatsState> {
@@ -15,10 +16,15 @@ class LikedCatsBloc extends Bloc<LikedCatsEvent, LikedCatsState> {
       (event, emit) async {
         emit(LikedCatsLoading());
         try {
-          final cats = await _catInteractor.getLikedCats();
-          emit(LikedCatsContentReady(cats));
-        } catch (e) {
-          emit(LikedCatsError());
+          if (await _catInteractor.isLikedCatsEmpty()) {
+            emit(LikedCatsEmpty());
+          }
+          await emit.forEach(
+            _catInteractor.getLikedCats(),
+            onData: (cat) => LikedCatContentReady(cat as Cat),
+          );
+        } catch (e, s) {
+          emit(LikedCatsError(s.toString()));
         }
       },
     );

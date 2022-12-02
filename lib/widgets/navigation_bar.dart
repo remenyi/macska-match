@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 class MacskaMatchNavigationBar extends StatefulWidget {
-  int _currentTabIndex = 1;
-  final GlobalKey<NavigatorState> navigatorKey;
+  final int currentTabIndex;
+  final PageController controller;
 
-  MacskaMatchNavigationBar({
+  const MacskaMatchNavigationBar({
     Key? key,
-    required this.navigatorKey,
+    required this.controller,
+    required this.currentTabIndex,
   }) : super(key: key);
 
   @override
@@ -14,6 +15,8 @@ class MacskaMatchNavigationBar extends StatefulWidget {
 }
 
 class _MacskaMatchNavigationBarState extends State<MacskaMatchNavigationBar> {
+  late int currentTabIndex = widget.currentTabIndex;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -24,21 +27,21 @@ class _MacskaMatchNavigationBarState extends State<MacskaMatchNavigationBar> {
           topLeft: Radius.circular(20),
         ),
         child: BottomNavigationBar(
-          currentIndex: widget._currentTabIndex,
+          currentIndex: widget.currentTabIndex,
           elevation: 10,
-          backgroundColor: Color.fromRGBO(255, 129, 166, 1),
+          backgroundColor: const Color.fromRGBO(255, 129, 166, 1),
           fixedColor: Colors.white,
           unselectedItemColor: Colors.grey.shade300,
           unselectedFontSize: 12,
           selectedFontSize: 14,
-          unselectedIconTheme: IconThemeData(
+          unselectedIconTheme: const IconThemeData(
             size: 40,
           ),
-          selectedIconTheme: IconThemeData(
+          selectedIconTheme: const IconThemeData(
             size: 40,
           ),
-          unselectedLabelStyle: TextStyle(),
-          selectedLabelStyle: TextStyle(
+          unselectedLabelStyle: const TextStyle(),
+          selectedLabelStyle: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
           items: const [
@@ -62,24 +65,13 @@ class _MacskaMatchNavigationBarState extends State<MacskaMatchNavigationBar> {
             ),
           ],
           onTap: (index) {
-            if (widget._currentTabIndex == index) return;
-
-            switch (index) {
-              case 0:
-                widget.navigatorKey.currentState!.popAndPushNamed("disliked");
-                break;
-              case 1:
-                widget.navigatorKey.currentState!.popAndPushNamed("home");
-                break;
-              case 2:
-                widget.navigatorKey.currentState!.popAndPushNamed("liked");
-                break;
-              default:
-                widget.navigatorKey.currentState!.popAndPushNamed("home");
-                break;
-            }
+            widget.controller.animateToPage(
+              index,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.ease,
+            );
             setState(() {
-              widget._currentTabIndex = index;
+              currentTabIndex = index;
             });
           },
         ),

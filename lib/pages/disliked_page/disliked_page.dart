@@ -1,24 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:macska_match/di/di.dart';
 import 'package:macska_match/domain/model/cat.dart';
 import 'package:macska_match/helpers/empty_content.dart';
 import 'package:macska_match/helpers/missing_content.dart';
 import 'package:macska_match/helpers/popup.dart';
 import 'package:macska_match/helpers/retry_button.dart';
+import 'package:macska_match/widgets/cat_list.dart';
 
 import 'disliked_cats_bloc.dart';
 
 class DislikedPage extends StatelessWidget {
-  DislikedPage({Key? key}) : super(key: key);
+  const DislikedPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
+    final List<Cat> cats = [];
+    final catList = CatList(
+      listKey: listKey,
+      catList: cats,
+    );
+
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.only(bottom: 10),
-          child: Text(
+          margin: const EdgeInsets.only(bottom: 10),
+          child: const Text(
             'Disliked cats',
             style: TextStyle(
               color: Color.fromRGBO(255, 111, 127, 1),
@@ -32,8 +41,10 @@ class DislikedPage extends StatelessWidget {
           child: BlocConsumer<DislikedCatsBloc, DislikedCatsState>(
             listener: (context, state) {
               if (state is DislikedCatsError) {
+                final errorMessage = state.errorMessage;
                 context.showErrorPopup(
                   description: "Failed to load disliked cats!",
+                  details: errorMessage,
                 );
               }
             },
@@ -43,20 +54,32 @@ class DislikedPage extends StatelessWidget {
                   BlocProvider.of<DislikedCatsBloc>(context).add(GetDislikedCatsEvent());
                   return Container();
                 case DislikedCatsLoading:
-                  return Expanded(
+                  return const Expanded(
                     child: Center(
                       child: CircularProgressIndicator(),
                     ),
                   );
-                case DislikedCatsContentReady:
-                  final cats = (state as DislikedCatsContentReady).cats;
-                  if (cats.isEmpty)
-                    return Expanded(
-                      child: Center(
-                        child: showEmptyContent('There are no disliked cats!'),
+                case DislikedCatsEmpty:
+                  return Expanded(
+                    child: Center(
+                      child: showEmptyContent(
+                        'There are no disliked cats!',
+                        SvgPicture.asset('assets/dislike.svg'),
                       ),
-                    );
-                  return _buildDislikedCatsList((state as DislikedCatsContentReady).cats);
+                    ),
+                  );
+                case DislikedCatContentReady:
+                  final cat = (state as DislikedCatContentReady).cat;
+                  cats.insert(0, cat);
+                  listKey.currentState?.insertItem(0);
+                  return catList;
+                case DislikedCatDeleted:
+                  final index = (state as DislikedCatDeleted).index;
+                  cats.removeAt(index);
+                  listKey.currentState?.removeItem(index, (BuildContext context, Animation<double> animation) {
+                    return Container();
+                  }, duration: const Duration(milliseconds: 500));
+                  return catList;
                 default:
                   return Expanded(
                     child: Column(
@@ -64,7 +87,7 @@ class DislikedPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         showMissingContent('Could not load disliked cats!'),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         retryButton(() => BlocProvider.of<DislikedCatsBloc>(context).add(GetDislikedCatsEvent())),
@@ -76,37 +99,6 @@ class DislikedPage extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildDislikedCatsList(List<Cat> cats) {
-    return Expanded(
-      child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: cats.length,
-        itemBuilder: (context, index) {
-          return Container(
-            margin: EdgeInsets.symmetric(horizontal: 10),
-            child: Card(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20.0),
-                    ),
-                    child: Image.memory(cats[index].picture,
-                        // width: 300,
-                        height: 200,
-                        fit: BoxFit.cover),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
     );
   }
 }

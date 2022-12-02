@@ -1,0 +1,22 @@
+<svg width="118" height="133" viewBox="0 0 118 133" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.3561 33C-3.5 75.5 2.52281 102.5 5.85614 117C25.2908 127.565 56.7115 142.355 112.856 117C116.189 102.5 119.356 65.4 105.356 33L104 20L102.856 5.5L93 15L84.8562 22C58.6377 16.5667 44.0756 19.7361 35 22L16.8561 2L13.5 33H13.3561Z" fill="#8E8E8E" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="42" cy="63.5" r="3" fill="black"/>
+<path d="M40 62.5L35 58.5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M44 62.5L49 58.5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M41.5 63L38 56" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M42.5 63L46 56" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M42 62V55" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="78" cy="64.5" r="3" fill="black"/>
+<path d="M76 63.5L71 59.5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M80 63.5L85 59.5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M77.5 64L74 57" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M78.5 64L82 57" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M78 63V56" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M61 82.5C61 83.8807 59.8807 85 58.5 85C57.1193 85 56 83.8807 56 82.5C56 81.1193 57.1193 80 58.5 80C59.8807 80 61 81.1193 61 82.5Z" fill="black"/>
+<path d="M65 82.5C65 83.8807 63.8807 85 62.5 85C61.1193 85 60 83.8807 60 82.5C60 81.1193 61.1193 80 62.5 80C63.8807 80 65 81.1193 65 82.5Z" fill="black"/>
+<path d="M60.5 85C58.9085 111.5 66.9085 111 73.9085 104.5" stroke="black" stroke-width="3" stroke-linecap="round"/>
+<path d="M60.4085 85C60.4085 112.5 54 111 47 104.5" stroke="black" stroke-width="3" stroke-linecap="round"/>
+<path d="M35.5 90C35.5 94.114 31.9473 97.5 27.5 97.5C23.0527 97.5 19.5 94.114 19.5 90C19.5 85.886 23.0527 82.5 27.5 82.5C31.9473 82.5 35.5 85.886 35.5 90Z" fill="#BDBDBD" stroke="black"/>
+<path d="M101.5 89C101.5 93.114 97.9473 96.5 93.5 96.5C89.0527 96.5 85.5 93.114 85.5 89C85.5 84.886 89.0527 81.5 93.5 81.5C97.9473 81.5 101.5 84.886 101.5 89Z" fill="#BDBDBD" stroke="black"/>
+<rect x="60.5355" y="81" width="5" height="5" transform="rotate(45 60.5355 81)" fill="black"/>
+</svg>

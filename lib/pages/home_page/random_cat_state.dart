@@ -30,26 +30,23 @@ class RandomCatContentReady extends RandomCatState with EquatableMixin {
   List<Object?> get props => [cat];
 }
 
-class GetRandomCatError extends RandomCatState {
-  static const GetRandomCatError _instance = GetRandomCatError._();
+class RandomCatError extends RandomCatState with EquatableMixin {
+  final String errorMessage;
 
-  factory GetRandomCatError() => _instance;
+  RandomCatError(this.errorMessage);
 
-  const GetRandomCatError._();
+  @override
+  List<Object?> get props => [errorMessage];
 }
 
-class LikeRandomCatError extends RandomCatState {
-  static const LikeRandomCatError _instance = LikeRandomCatError._();
-
-  factory LikeRandomCatError() => _instance;
-
-  const LikeRandomCatError._();
+class GetRandomCatError extends RandomCatError {
+  GetRandomCatError(super.errorMessage);
 }
 
-class DislikeRandomCatError extends RandomCatState {
-  static const DislikeRandomCatError _instance = DislikeRandomCatError._();
+class LikeRandomCatError extends RandomCatError {
+  LikeRandomCatError(super.errorMessage);
+}
 
-  factory DislikeRandomCatError() => _instance;
-
-  const DislikeRandomCatError._();
+class DislikeRandomCatError extends RandomCatError {
+  DislikeRandomCatError(super.errorMessage);
 }

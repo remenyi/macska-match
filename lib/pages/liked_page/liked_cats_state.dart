@@ -19,19 +19,25 @@ class LikedCatsLoading extends LikedCatsState {
   LikedCatsLoading._();
 }
 
-class LikedCatsContentReady extends LikedCatsState with EquatableMixin {
-  final List<Cat> cats;
+class LikedCatsEmpty extends LikedCatsState {
+  static final LikedCatsEmpty _instance = LikedCatsEmpty._();
 
-  LikedCatsContentReady(this.cats);
+  factory LikedCatsEmpty() => _instance;
+
+  LikedCatsEmpty._();
+}
+
+class LikedCatContentReady extends LikedCatsState with EquatableMixin {
+  final Cat cat;
+
+  LikedCatContentReady(this.cat);
 
   @override
-  List<Object?> get props => [cats];
+  List<Object?> get props => [cat];
 }
 
 class LikedCatsError extends LikedCatsState {
-  static final LikedCatsError _instance = LikedCatsError._();
+  final String errorMessage;
 
-  factory LikedCatsError() => _instance;
-
-  LikedCatsError._();
+  LikedCatsError(this.errorMessage);
 }

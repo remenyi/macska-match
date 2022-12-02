@@ -17,12 +17,12 @@ class LikeDislikeButton extends StatelessWidget {
     return OutlinedButton(
       style: OutlinedButton.styleFrom(
         foregroundColor: color,
-        shape: CircleBorder(),
+        shape: const CircleBorder(),
         side: BorderSide(
           width: 3,
           color: color,
         ),
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
       ),
       onPressed: onPressed,
       child: Icon(

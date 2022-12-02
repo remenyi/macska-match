@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:macska_match/di/di.dart';
 import 'package:macska_match/pages/disliked_page/disliked_page.dart';
 import 'package:macska_match/pages/home_page/home_page.dart';
-import 'package:macska_match/pages/home_page/random_cat_bloc.dart';
 import 'package:macska_match/pages/liked_page/liked_page.dart';
 import 'package:macska_match/widgets/navigation_bar.dart';
 
-class FrontPage extends StatelessWidget {
-  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+class FrontPage extends StatefulWidget {
+  const FrontPage({Key? key}) : super(key: key);
 
-  FrontPage({Key? key}) : super(key: key);
+  @override
+  State<FrontPage> createState() => _FrontPageState();
+}
+
+class _FrontPageState extends State<FrontPage> {
+  final pageController = PageController(initialPage: 1, keepPage: true);
+  int currentTabIndex = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -24,65 +27,26 @@ class FrontPage extends StatelessWidget {
         centerTitle: true,
         title: SvgPicture.asset('assets/logo.svg'),
       ),
-      body: Navigator(
-          key: _navigatorKey,
-          onGenerateRoute: (settings) {
-            switch (settings.name) {
-              case 'disliked':
-                //return MaterialPageRoute(builder: (context) => HomePage());
-                return _createDislikedPageRoute();
-              case 'home':
-                return _createHomePageRoute();
-              case 'liked':
-                return _createLikedPageRoute();
-              default:
-                return MaterialPageRoute(builder: (context) => HomePage());
-            }
-          }),
-      /**/
+      body: PageView(
+        // TODO: set to BouncingScrollPhysics after fixing the tinder-like swipe feature
+        physics: const NeverScrollableScrollPhysics(),
+        controller: pageController,
+        onPageChanged: (index) {
+          setState(() {
+            currentTabIndex = index;
+          });
+        },
+        children: const [
+          DislikedPage(),
+          HomePage(),
+          LikedPage(),
+        ],
+      ),
       backgroundColor: Colors.transparent,
-      bottomNavigationBar: MacskaMatchNavigationBar(navigatorKey: _navigatorKey),
-    );
-  }
-
-  Route _createDislikedPageRoute() {
-    return _createRoute(DislikedPage(), Offset(-1.0, 0.0));
-  }
-
-  Route _createLikedPageRoute() {
-    return _createRoute(LikedPage(), Offset(1.0, 0.0));
-  }
-
-  Route _createHomePageRoute() {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => HomePage(),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        return FadeTransition(
-          opacity: animation,
-          child: FadeTransition(
-            opacity: animation,
-            child: child,
-          ),
-        );
-      },
-    );
-  }
-
-  Route _createRoute(Widget page, Offset offset) {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => page,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        final begin = offset;
-        const end = Offset.zero;
-        const curve = Curves.ease;
-
-        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-        return SlideTransition(
-          position: animation.drive(tween),
-          child: child,
-        );
-      },
+      bottomNavigationBar: MacskaMatchNavigationBar(
+        controller: pageController,
+        currentTabIndex: currentTabIndex,
+      ),
     );
   }
 }

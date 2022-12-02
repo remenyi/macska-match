@@ -39,6 +39,11 @@ dependencies:
   equatable: ^2.0.5
   bloc: ^8.1.0
   flutter_bloc: ^8.1.1
+  firebase_core: ^2.3.0
+  firebase_storage: ^11.0.6
+  cloud_firestore: ^4.1.0
+  swipable_stack: ^2.0.0
+  flutter_slidable: ^2.0.0
 
 
 dev_dependencies:
@@ -68,6 +73,9 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
   - assets/logo.svg
+  - assets/missing.svg
+  - assets/like.svg
+  - assets/dislike.svg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

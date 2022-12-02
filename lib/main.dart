@@ -2,10 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:macska_match/di/di.dart';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
 import 'pages/front_page.dart';
 
-void main() {
+void main() async {
   initDependencies();
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MacskaMatch());
 }
 
@@ -22,11 +31,11 @@ class MacskaMatch extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                stops: const [0.3, 0.5],
+                stops: [0.3, 0.5],
                 colors: [Color.fromRGBO(255, 220, 239, 1), Colors.white],
               ),
             ),
@@ -35,13 +44,13 @@ class MacskaMatch extends StatelessWidget {
                 primarySwatch: Colors.pink,
                 fontFamily: 'Poppins',
               ),
-              home: FrontPage(),
+              home: const FrontPage(),
             ),
           );
         }
         return Container(
           color: Colors.pinkAccent,
-          child: Center(
+          child: const Center(
             child: CircularProgressIndicator(),
           ),
         );

@@ -19,16 +19,34 @@ class DislikedCatsLoading extends DislikedCatsState {
   DislikedCatsLoading._();
 }
 
-class DislikedCatsContentReady extends DislikedCatsState {
-  final List<Cat> cats;
+class DislikedCatsEmpty extends DislikedCatsState {
+  static final DislikedCatsEmpty _instance = DislikedCatsEmpty._();
 
-  DislikedCatsContentReady(this.cats);
+  factory DislikedCatsEmpty() => _instance;
+
+  DislikedCatsEmpty._();
+}
+
+class DislikedCatContentReady extends DislikedCatsState with EquatableMixin {
+  final Cat cat;
+
+  DislikedCatContentReady(this.cat);
+
+  @override
+  List<Object?> get props => [cat];
+}
+
+class DislikedCatDeleted extends DislikedCatsState with EquatableMixin {
+  final int index;
+
+  DislikedCatDeleted(this.index);
+
+  @override
+  List<Object?> get props => [index];
 }
 
 class DislikedCatsError extends DislikedCatsState {
-  static final DislikedCatsError _instance = DislikedCatsError._();
+  final String errorMessage;
 
-  factory DislikedCatsError() => _instance;
-
-  DislikedCatsError._();
+  DislikedCatsError(this.errorMessage);
 }
