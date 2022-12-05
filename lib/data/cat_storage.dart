@@ -23,6 +23,11 @@ class CatStorage {
     );
   }
 
+  Future deleteCat(CatUriModel catUri) async {
+    final catRef = FirebaseStorage.instance.refFromURL(catUri.uri);
+    await catRef.delete();
+  }
+
   Future<CatUriModel> _saveCat(Cat cat, String location) async {
     final catRef = FirebaseStorage.instance.ref(location);
     await catRef.putData(

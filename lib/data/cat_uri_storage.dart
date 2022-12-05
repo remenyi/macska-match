@@ -13,28 +13,30 @@ class CatUriStorage {
 
   Future<Iterable<CatUriModel>> getDislikedCatUris() => _getCatUris(_dislikedCollection);
 
-  Future<bool> isDislikedCatsEmpty() => _isCollectionEmpty(_dislikedCollection);
-
-  Future<bool> isLikedCatsEmpty() => _isCollectionEmpty(_likedCollection);
-
-  Future<bool> _isCollectionEmpty(String collection) async {
+  Future deleteCatUri(CatUriModel catUri) async {
     final db = FirebaseFirestore.instance;
-    db.settings = const Settings(persistenceEnabled: false);
+    db.settings = const Settings(persistenceEnabled: true);
 
-    final snapshot = await db.collection(collection).get();
+    final likedCatDocs = await db.collection(_likedCollection).where('uri', isEqualTo: catUri.uri).get();
+    if (likedCatDocs.docs.isNotEmpty) {
+      await db.collection(_likedCollection).doc(likedCatDocs.docs.first.id).delete();
+    }
 
-    return snapshot.docs.isEmpty;
+    final dislikedCatDocs = await db.collection(_dislikedCollection).where('uri', isEqualTo: catUri.uri).get();
+    if (dislikedCatDocs.docs.isNotEmpty) {
+      await db.collection(_dislikedCollection).doc(dislikedCatDocs.docs.first.id).delete();
+    }
   }
 
   Future _saveCatUri(CatUriModel uriModel, String collection) async {
     final db = FirebaseFirestore.instance;
-    db.settings = const Settings(persistenceEnabled: false);
+    db.settings = const Settings(persistenceEnabled: true);
     await db.collection(collection).add(uriModel.toMap()).timeout(const Duration(seconds: 5));
   }
 
   Future<Iterable<CatUriModel>> _getCatUris(String collection) async {
     final db = FirebaseFirestore.instance;
-    db.settings = const Settings(persistenceEnabled: false);
+    db.settings = const Settings(persistenceEnabled: true);
 
     final results = await db.collection(collection).orderBy('timestamp', descending: true).get();
 

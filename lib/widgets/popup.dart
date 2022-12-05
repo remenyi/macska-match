@@ -4,26 +4,35 @@ extension BuildContextHelpers on BuildContext {
   void showErrorPopup({required String description, String? details}) {
     showDialog<String>(
       context: this,
-      builder: (BuildContext context) => AlertDialog(
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
-        title: const Text('There was an error!'),
-        content: details?.isEmpty ?? true
-            ? Text(description)
-            : _buildWithDetails(
-                description,
-                details!,
+      builder: (BuildContext context) =>
+          AlertDialog(
+            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
+            title: const Text('There was an error!'),
+            content: details?.isEmpty ?? true
+                ? Text(description)
+                : ErrorDetails(
+              description: description,
+              details: details!,
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'OK'),
+                child: const Text('OK'),
               ),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () => Navigator.pop(context, 'OK'),
-            child: const Text('OK'),
+            ],
           ),
-        ],
-      ),
     );
   }
+}
 
-  Widget _buildWithDetails(String description, String details) {
+class ErrorDetails extends StatelessWidget {
+  final String description;
+  final String details;
+
+  const ErrorDetails({Key? key, required this.description, required this.details}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return SizedBox(
       height: 300,
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -47,3 +56,4 @@ extension BuildContextHelpers on BuildContext {
     );
   }
 }
+

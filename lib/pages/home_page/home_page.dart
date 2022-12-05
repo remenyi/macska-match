@@ -151,11 +151,11 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              showMissingContent('Could not load new cat!'),
+              const MissingContent(message: 'Could not load new cat!'),
               const SizedBox(
                 height: 20,
               ),
-              retryButton(() => BlocProvider.of<RandomCatBloc>(context).add(GetRandomCatEvent())),
+              RetryButton(onPressed: () => BlocProvider.of<RandomCatBloc>(context).add(GetRandomCatEvent())),
             ],
           );
       }

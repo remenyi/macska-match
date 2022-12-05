@@ -12,14 +12,22 @@ class CatListElementBloc extends Bloc<CatListElementEvent, CatListElementState> 
   final CatInteractor _catInteractor;
 
   CatListElementBloc(this._catInteractor) : super(CatListElementInitial()) {
-    on<CatListElementEvent>((event, emit) async {
+    on<GetCatListElementEvent>((event, emit) async {
       emit(CatListElementLoading());
       try {
-        final catUriEvent = event as GetCatListElementEvent;
-        final cat = await _catInteractor.getCat(catUriEvent.catUri);
+        final cat = await _catInteractor.getCat(event.catUri);
         emit(CatListElementContentReady(cat));
       } catch (e) {
-        emit(CatListElementError(e.toString()));
+        emit(CatListElementGetError(e.toString()));
+      }
+    });
+
+    on<DeleteCatListElementEvent>((event, emit) async {
+      try {
+        await _catInteractor.deleteCat(event.catUri);
+        emit(CatListElementDeleted(event.index));
+      } catch (e) {
+        emit(CatListElementDeleteError(e.toString()));
       }
     });
   }

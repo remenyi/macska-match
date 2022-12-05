@@ -42,4 +42,8 @@ class CatInteractor {
     _hotCatStorage.saveCat(catUri, coldCat);
     return coldCat;
   }
+
+  Future deleteCat(CatUriModel catUri) async {
+    await Future.wait([_catStorage.deleteCat(catUri), _catUriStorage.deleteCatUri(catUri)]);
+  }
 }

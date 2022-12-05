@@ -62,18 +62,19 @@ class CatsViewPage extends StatelessWidget {
                         const Spacer(flex: 10),
                         Center(
                           child: catsViewType == CatsViewType.disliked
-                              ? showEmptyContent(
-                                  'There are no disliked cats!',
-                                  SvgPicture.asset('assets/dislike.svg'),
+                              ? EmptyContent(
+                                  message: 'There are no disliked cats!',
+                                  icon: SvgPicture.asset('assets/dislike.svg'),
                                 )
-                              : showEmptyContent(
-                                  'There are no liked cats!',
-                                  SvgPicture.asset('assets/like.svg'),
+                              : EmptyContent(
+                                  message: 'There are no liked cats!',
+                                  icon: SvgPicture.asset('assets/like.svg'),
                                 ),
                         ),
                         const Spacer(),
-                        retryButton(() => BlocProvider.of<CatsViewBloc>(context)
-                            .add(catsViewType == CatsViewType.disliked ? GetDislikedCatsEvent() : GetLikedCatsEvent())),
+                        RetryButton(
+                            onPressed: () => BlocProvider.of<CatsViewBloc>(context).add(
+                                catsViewType == CatsViewType.disliked ? GetDislikedCatsEvent() : GetLikedCatsEvent())),
                         const Spacer(flex: 10),
                       ],
                     ),
@@ -89,7 +90,10 @@ class CatsViewPage extends StatelessWidget {
                         return Future.delayed(const Duration(seconds: 1));
                       },
                       child: CatList(
-                        catUriList: catUris,
+                        catUriList: catUris.toList(),
+                        onEmptyEvent: () => catsViewType == CatsViewType.disliked
+                            ? BlocProvider.of<CatsViewBloc>(context).add(GetDislikedCatsEvent())
+                            : BlocProvider.of<CatsViewBloc>(context).add(GetLikedCatsEvent()),
                       ),
                     ),
                   );
@@ -99,14 +103,17 @@ class CatsViewPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        showMissingContent(catsViewType == CatsViewType.disliked
-                            ? 'Could not load disliked cats!'
-                            : 'Could not load liked cats!'),
+                        MissingContent(
+                            message: catsViewType == CatsViewType.disliked
+                                ? 'Could not load disliked cats!'
+                                : 'Could not load liked cats!'),
                         const SizedBox(
                           height: 20,
                         ),
-                        retryButton(() => BlocProvider.of<CatsViewBloc>(context)
-                            .add(catsViewType == CatsViewType.disliked ? GetDislikedCatsEvent() : GetLikedCatsEvent())),
+                        RetryButton(
+                          onPressed: () => BlocProvider.of<CatsViewBloc>(context).add(
+                              catsViewType == CatsViewType.disliked ? GetDislikedCatsEvent() : GetLikedCatsEvent()),
+                        ),
                       ],
                     ),
                   );

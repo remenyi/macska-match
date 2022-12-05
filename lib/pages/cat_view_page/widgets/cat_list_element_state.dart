@@ -25,8 +25,20 @@ class CatListElementContentReady extends CatListElementState {
   CatListElementContentReady(this.cat);
 }
 
-class CatListElementError extends CatListElementState {
+class CatListElementDeleted extends CatListElementState {
+  final int index;
+
+  CatListElementDeleted(this.index);
+}
+
+class CatListElementGetError extends CatListElementState {
   final String error;
 
-  CatListElementError(this.error);
+  CatListElementGetError(this.error);
+}
+
+class CatListElementDeleteError extends CatListElementState {
+  final String error;
+
+  CatListElementDeleteError(this.error);
 }

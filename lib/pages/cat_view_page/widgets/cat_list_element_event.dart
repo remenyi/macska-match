@@ -8,3 +8,10 @@ class GetCatListElementEvent extends CatListElementEvent {
 
   GetCatListElementEvent(this.catUri);
 }
+
+class DeleteCatListElementEvent extends CatListElementEvent {
+  final CatUriModel catUri;
+  final int index;
+
+  DeleteCatListElementEvent(this.catUri, this.index);
+}
