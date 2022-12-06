@@ -1,0 +1,23 @@
+{
+  "@@locale": "en",
+  "home": "Home",
+  "liked": "Liked",
+  "disliked": "Disliked",
+  "helper": "To like a picture of a cat click o  the heart icon, or swipe right",
+  "dislikedCats": "Disliked cats",
+  "likedCats": "Liked cats",
+  "catMissing": "Could not load cat!",
+  "retry": "Retry",
+  "noLiked": "There are no liked cats!",
+  "noDisliked": "There are no disliked cats!",
+  "failedLike": "Failed to like the cat!",
+  "failedDislike": "Failed to dislike the cat!",
+  "likedOverlay": "Liked",
+  "dislikedOverlay": "Disliked",
+  "catLoadError": "Could not load a new cat!",
+  "deleteError": "Could not delete cat!",
+  "errorOccurred": "There was an error!",
+  "ok": "Ok",
+  "errorLoadingDisliked": "Failed to load disliked cats!",
+  "errorLoadingLiked": "Failed to load liked cats!"
+}

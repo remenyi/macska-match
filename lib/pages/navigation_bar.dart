@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/l10n.dart';
 
 class MacskaMatchNavigationBar extends StatefulWidget {
   final int currentTabIndex;
@@ -19,6 +20,8 @@ class _MacskaMatchNavigationBarState extends State<MacskaMatchNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = L10n.of(context)!;
+
     return SizedBox(
       height: 80,
       child: ClipRRect(
@@ -44,23 +47,23 @@ class _MacskaMatchNavigationBarState extends State<MacskaMatchNavigationBar> {
           selectedLabelStyle: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
-          items: const [
+          items: [
             BottomNavigationBarItem(
-              activeIcon: Icon(Icons.clear),
-              icon: Icon(Icons.clear_outlined),
-              label: 'Disliked',
+              activeIcon: const Icon(Icons.clear),
+              icon: const Icon(Icons.clear_outlined),
+              label: l10n.disliked,
               tooltip: '',
             ),
             BottomNavigationBarItem(
-              activeIcon: Icon(Icons.home),
-              icon: Icon(Icons.home_outlined),
-              label: 'Home',
+              activeIcon: const Icon(Icons.home),
+              icon: const Icon(Icons.home_outlined),
+              label: l10n.home,
               tooltip: '',
             ),
             BottomNavigationBarItem(
-              activeIcon: Icon(Icons.favorite),
-              icon: Icon(Icons.favorite_outline),
-              label: 'Liked',
+              activeIcon: const Icon(Icons.favorite),
+              icon: const Icon(Icons.favorite_outline),
+              label: l10n.liked,
               tooltip: '',
             ),
           ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:macska_match/di/di.dart';
 import 'package:macska_match/pages/cat_view_page/cats_view_bloc.dart';
@@ -16,12 +17,14 @@ class CatsViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = L10n.of(context)!;
+
     return Column(
       children: [
         Container(
           margin: const EdgeInsets.only(bottom: 10),
           child: Text(
-            catsViewType == CatsViewType.disliked ? 'Disliked cats' : 'Liked cats',
+            catsViewType == CatsViewType.disliked ? l10n.dislikedCats : l10n.likedCats,
             style: const TextStyle(
               color: Color.fromRGBO(255, 111, 127, 1),
               fontSize: 28,
@@ -36,7 +39,8 @@ class CatsViewPage extends StatelessWidget {
               if (state is CatsViewError) {
                 final errorMessage = state.errorMessage;
                 context.showErrorPopup(
-                  description: "Failed to load disliked cats!",
+                  description:
+                      catsViewType == CatsViewType.disliked ? l10n.errorLoadingDisliked : l10n.errorLoadingLiked,
                   details: errorMessage,
                 );
               }
@@ -63,11 +67,11 @@ class CatsViewPage extends StatelessWidget {
                         Center(
                           child: catsViewType == CatsViewType.disliked
                               ? EmptyContent(
-                                  message: 'There are no disliked cats!',
+                                  message: l10n.noDisliked,
                                   icon: SvgPicture.asset('assets/dislike.svg'),
                                 )
                               : EmptyContent(
-                                  message: 'There are no liked cats!',
+                                  message: l10n.noLiked,
                                   icon: SvgPicture.asset('assets/like.svg'),
                                 ),
                         ),
@@ -105,8 +109,8 @@ class CatsViewPage extends StatelessWidget {
                       children: [
                         MissingContent(
                             message: catsViewType == CatsViewType.disliked
-                                ? 'Could not load disliked cats!'
-                                : 'Could not load liked cats!'),
+                                ? l10n.errorLoadingDisliked
+                                : l10n.errorLoadingLiked),
                         const SizedBox(
                           height: 20,
                         ),

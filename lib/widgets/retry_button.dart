@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/l10n.dart';
 
 class RetryButton extends StatelessWidget {
   static const color = Color.fromRGBO(142, 142, 142, 1);
@@ -8,6 +9,8 @@ class RetryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = L10n.of(context)!;
+
     return OutlinedButton(
       style: OutlinedButton.styleFrom(
         shape: const RoundedRectangleBorder(
@@ -21,9 +24,9 @@ class RetryButton extends StatelessWidget {
         foregroundColor: color,
       ),
       onPressed: onPressed,
-      child: const Text(
-        'Retry',
-        style: TextStyle(
+      child: Text(
+        l10n.retry,
+        style: const TextStyle(
           color: color,
           fontWeight: FontWeight.w400,
           fontSize: 18,

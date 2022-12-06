@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/l10n.dart';
 
 extension BuildContextHelpers on BuildContext {
   void showErrorPopup({required String description, String? details}) {
     showDialog<String>(
       context: this,
-      builder: (BuildContext context) =>
-          AlertDialog(
+      builder: (BuildContext context) {
+        final l10n = L10n.of(context)!;
+
+        return AlertDialog(
             shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
-            title: const Text('There was an error!'),
+            title: Text(l10n.errorOccurred),
             content: details?.isEmpty ?? true
                 ? Text(description)
                 : ErrorDetails(
@@ -17,10 +20,11 @@ extension BuildContextHelpers on BuildContext {
             actions: <Widget>[
               TextButton(
                 onPressed: () => Navigator.pop(context, 'OK'),
-                child: const Text('OK'),
+                child: Text(l10n.ok),
               ),
             ],
-          ),
+          );
+      },
     );
   }
 }

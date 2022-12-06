@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:macska_match/curves/custom_popup_curve.dart';
 import 'package:macska_match/di/di.dart';
 import 'package:macska_match/domain/model/cat_uri_model.dart';
-import 'package:macska_match/pages/cat_view_page/cats_view_bloc.dart';
 import 'package:macska_match/pages/cat_view_page/widgets/cat_list_element_bloc.dart';
 import 'package:macska_match/widgets/popup.dart';
 import 'package:macska_match/widgets/retry_button.dart';
+import 'package:flutter_gen/gen_l10n/l10n.dart';
 
 class CatList extends StatelessWidget {
   final List<CatUriModel> catUriList;
@@ -16,6 +16,8 @@ class CatList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = L10n.of(context)!;
+
     return ListView.builder(
       shrinkWrap: true,
       itemCount: catUriList.length,
@@ -36,7 +38,7 @@ class CatList extends StatelessWidget {
                 case CatListElementDeleteError:
                   final details = (state as CatListElementDeleteError).error;
                   context.showErrorPopup(
-                    description: "Could not delete the cat!",
+                    description: l10n.deleteError,
                     details: details,
                   );
                   break;
@@ -101,6 +103,8 @@ class _CatCardState extends State<CatCard> {
                     duration: const Duration(milliseconds: 500),
                     child: BlocBuilder<CatListElementBloc, CatListElementState>(
                       builder: (context, state) {
+                        final l10n = L10n.of(context)!;
+
                         switch (state.runtimeType) {
                           case CatListElementInitial:
                             BlocProvider.of<CatListElementBloc>(context).add(GetCatListElementEvent(widget.catUri));
@@ -133,7 +137,7 @@ class _CatCardState extends State<CatCard> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   const Spacer(flex: 4),
-                                  const Text('Could not load cat!'),
+                                  Text(l10n.catMissing),
                                   const Spacer(),
                                   RetryButton(
                                     onPressed: () => BlocProvider.of<CatListElementBloc>(context)

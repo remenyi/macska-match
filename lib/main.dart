@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 import 'pages/front_page.dart';
+import 'package:flutter_gen/gen_l10n/l10n.dart';
 
 void main() async {
   initDependencies();
@@ -45,6 +46,8 @@ class MacskaMatch extends StatelessWidget {
                 fontFamily: 'Poppins',
               ),
               home: const FrontPage(),
+              localizationsDelegates: L10n.localizationsDelegates,
+              supportedLocales: L10n.supportedLocales,
             ),
           );
         }

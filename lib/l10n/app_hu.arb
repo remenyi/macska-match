@@ -1,0 +1,23 @@
+{
+  "@@locale": "hu",
+  "home": "Főoldal",
+  "liked": "Kedvelt",
+  "disliked": "Nem kedvelt",
+  "helper": "Egy cica kedveléséhez kattints a szív ikonra, vagy húzz jobbra",
+  "dislikedCats": "Nem kedvelt cicák",
+  "likedCats": "Kedvelt cicák",
+  "catMissing": "A cica betöltése sikertelen volt!",
+  "retry": "Újra",
+  "noLiked": "Nincsenek kedvelt cicák!",
+  "noDisliked": "Nincsenek nem kedvelt cicák!",
+  "failedLike": "Cica kedvelése nem sikerült!",
+  "failedDislike": "Cica nem kedvelése nem sikerült!",
+  "likedOverlay": "Tetszik",
+  "dislikedOverlay": "Nem tetszik",
+  "catLoadError": "Nem sikerült új cicát betölteni!",
+  "deleteError": "Nem sikerült a cicát törölni!",
+  "errorOccurred": "Hiba történt!",
+  "ok": "Rendben",
+  "errorLoadingDisliked": "Nem kedvelt cicák betöltése sikertelen volt!",
+  "errorLoadingLiked": "Kedvelt cicák betöltése sikertelen volt!"
+}
