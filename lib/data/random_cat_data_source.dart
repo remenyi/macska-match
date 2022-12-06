@@ -1,9 +1,10 @@
 import 'dart:io';
 
 import 'package:http/http.dart';
-import 'package:macska_match/domain/model/cat.dart';
 
-class CaasDataSource {
+import '../domain/model/cat.dart';
+
+class RandomCatDataSource {
   Future<Cat> getRandomCat() async {
     final response = await get(Uri.parse('https://cataas.com/cat'));
 

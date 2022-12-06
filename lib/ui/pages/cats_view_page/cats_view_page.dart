@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:macska_match/di/di.dart';
-import 'package:macska_match/pages/cat_view_page/cats_view_bloc.dart';
-import 'package:macska_match/pages/cat_view_page/widgets/cat_list.dart';
-import 'package:macska_match/widgets/empty_content.dart';
-import 'package:macska_match/widgets/missing_content.dart';
-import 'package:macska_match/widgets/popup.dart';
-import 'package:macska_match/widgets/retry_button.dart';
+import 'package:macska_match/ui/pages/cats_view_page/widgets/cat_list.dart';
+import 'package:macska_match/ui/popups/popup.dart';
+
+import '../../../di/di.dart';
+import '../../widgets/empty_content.dart';
+import '../../widgets/missing_content.dart';
+import '../../widgets/retry_button.dart';
+import 'cats_view_bloc.dart';
 
 class CatsViewPage extends StatelessWidget {
   final CatsViewType catsViewType;

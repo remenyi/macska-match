@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:macska_match/pages/home_page/widgets/swipeable.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:macska_match/ui/pages/home_page/widgets/swipeable_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           const Expanded(
             flex: 30,
-            child: Swipeable(),
+            child: SwipeableCard(),
           ),
           const Spacer(),
           Expanded(

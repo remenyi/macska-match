@@ -1,49 +1,37 @@
-import 'package:macska_match/data/caas_data_source.dart';
-import 'package:macska_match/data/cat_storage.dart';
-import 'package:macska_match/data/cat_uri_storage.dart';
-import 'package:macska_match/data/hot_cat_storage.dart';
-import 'package:macska_match/domain/model/cat.dart';
-import 'package:macska_match/domain/model/cat_uri_model.dart';
+
+import '../../data/cat_picture_data_source.dart';
+import '../../data/cat_uri_data_source.dart';
+import '../../data/random_cat_data_source.dart';
+import '../model/cat.dart';
+import '../model/cat_uri_model.dart';
 
 class CatInteractor {
-  final CaasDataSource _caasDataSource;
-  final CatStorage _catStorage;
-  final CatUriStorage _catUriStorage;
-  final HotCatStorage _hotCatStorage;
+  final RandomCatDataSource _randomCatDataSource;
+  final CatPictureDataSource _catPictureDataSource;
+  final CatUriDataSource _catUriDataSource;
 
-  CatInteractor(this._caasDataSource, this._catStorage, this._catUriStorage, this._hotCatStorage);
+  CatInteractor(this._randomCatDataSource, this._catPictureDataSource, this._catUriDataSource);
 
   Future<Cat> getRandomCat() async {
-    return _caasDataSource.getRandomCat();
+    return _randomCatDataSource.getRandomCat();
   }
 
   Future likeCat(Cat cat) async {
-    final catUri = await _catStorage.saveToLiked(cat);
-    await _catUriStorage.saveLikedCatUri(catUri);
-    _hotCatStorage.saveCat(catUri, cat);
+    final catUri = await _catPictureDataSource.saveToLiked(cat);
+    await _catUriDataSource.saveLikedCatUri(catUri);
   }
 
   Future dislikeCat(Cat cat) async {
-    final catUri = await _catStorage.saveToDisliked(cat);
-    await _catUriStorage.saveDislikedCatUri(catUri);
-    _hotCatStorage.saveCat(catUri, cat);
+    final catUri = await _catPictureDataSource.saveToDisliked(cat);
+    await _catUriDataSource.saveDislikedCatUri(catUri);
   }
 
-  Future<Iterable<CatUriModel>> getLikedCatUris() async => _catUriStorage.getLikedCatUris();
+  Future<Iterable<CatUriModel>> getLikedCatUris() async => _catUriDataSource.getLikedCatUris();
 
-  Future<Iterable<CatUriModel>> getDislikedCatUris() async => _catUriStorage.getDislikedCatUris();
+  Future<Iterable<CatUriModel>> getDislikedCatUris() async => _catUriDataSource.getDislikedCatUris();
 
-  Future<Cat> getCat(CatUriModel catUri) async {
-    final hotCat = _hotCatStorage.getCat(catUri);
-    if (hotCat != null) {
-      return hotCat;
-    }
-    final coldCat = await _catStorage.getCat(catUri);
-    _hotCatStorage.saveCat(catUri, coldCat);
-    return coldCat;
-  }
+  Future<Cat> getCat(CatUriModel catUri) async => await _catPictureDataSource.getCat(catUri);
 
-  Future deleteCat(CatUriModel catUri) async {
-    await Future.wait([_catStorage.deleteCat(catUri), _catUriStorage.deleteCatUri(catUri)]);
-  }
+  Future deleteCat(CatUriModel catUri) async =>
+      await Future.wait([_catPictureDataSource.deleteCat(catUri), _catUriDataSource.deleteCatUri(catUri)]);
 }

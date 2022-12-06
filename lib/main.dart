@@ -5,8 +5,9 @@ import 'package:macska_match/di/di.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-import 'pages/front_page.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
+
+import 'ui/pages/front_page.dart';
 
 void main() async {
   initDependencies();

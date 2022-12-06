@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:macska_match/domain/model/cat_uri_model.dart';
 
-class CatUriStorage {
+import '../domain/model/cat_uri_model.dart';
+
+class CatUriDataSource {
   static const _likedCollection = 'liked_cats';
   static const _dislikedCollection = 'disliked_cats';
 

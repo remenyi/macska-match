@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:macska_match/pages/cat_view_page/cat_view_page.dart';
-import 'package:macska_match/pages/home_page/home_page.dart';
-import 'package:macska_match/pages/navigation_bar.dart';
+
+import 'cats_view_page/cats_view_page.dart';
+import 'home_page/home_page.dart';
+import 'navigation_bar.dart';
 
 class FrontPage extends StatefulWidget {
   const FrontPage({Key? key}) : super(key: key);

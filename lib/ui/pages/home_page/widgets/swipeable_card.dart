@@ -3,22 +3,23 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:macska_match/di/di.dart';
-import 'package:macska_match/pages/home_page/random_cat_bloc.dart';
-import 'package:macska_match/pages/home_page/widgets/cat_picture.dart';
-import 'package:macska_match/pages/home_page/widgets/like_dislike_button.dart';
-import 'package:macska_match/pages/home_page/widgets/like_dislike_overlay.dart';
-import 'package:macska_match/widgets/popup.dart';
+import 'package:macska_match/ui/popups/popup.dart';
 import 'package:swipable_stack/swipable_stack.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 
-class Swipeable extends StatefulWidget {
-  const Swipeable({Key? key}) : super(key: key);
+import '../random_cat_bloc.dart';
+import 'cat_picture.dart';
+import 'like_dislike_button.dart';
+import 'like_dislike_overlay.dart';
+
+class SwipeableCard extends StatefulWidget {
+  const SwipeableCard({Key? key}) : super(key: key);
 
   @override
-  State<Swipeable> createState() => _SwipeableState();
+  State<SwipeableCard> createState() => _SwipeableCardState();
 }
 
-class _SwipeableState extends State<Swipeable> {
+class _SwipeableCardState extends State<SwipeableCard> {
   late final SwipableStackController controller;
 
   @override

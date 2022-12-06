@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:macska_match/curves/custom_popup_curve.dart';
-import 'package:macska_match/di/di.dart';
-import 'package:macska_match/domain/model/cat_uri_model.dart';
-import 'package:macska_match/pages/cat_view_page/widgets/cat_list_element_bloc.dart';
-import 'package:macska_match/widgets/popup.dart';
-import 'package:macska_match/widgets/retry_button.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:macska_match/ui/popups/popup.dart';
+
+import '../../../../di/di.dart';
+import '../../../../domain/model/cat_uri_model.dart';
+import '../../../curves/custom_popup_curve.dart';
+import '../../../widgets/retry_button.dart';
+import 'cat_list_element_bloc.dart';
 
 class CatList extends StatelessWidget {
   final List<CatUriModel> catUriList;

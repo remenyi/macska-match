@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:macska_match/domain/interactors/cat_interactor.dart';
-import 'package:macska_match/domain/model/cat.dart';
+
+import '../../../domain/interactors/cat_interactor.dart';
+import '../../../domain/model/cat.dart';
 
 part 'random_cat_event.dart';
 

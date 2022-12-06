@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
-import 'package:macska_match/domain/interactors/cat_interactor.dart';
-import 'package:macska_match/domain/model/cat.dart';
-import 'package:macska_match/domain/model/cat_uri_model.dart';
 import 'package:meta/meta.dart';
+
+import '../../../../domain/interactors/cat_interactor.dart';
+import '../../../../domain/model/cat.dart';
+import '../../../../domain/model/cat_uri_model.dart';
 
 part 'cat_list_element_event.dart';
 

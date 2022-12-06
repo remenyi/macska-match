@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:macska_match/pages/home_page/random_cat_bloc.dart';
-import 'package:macska_match/widgets/missing_content.dart';
-import 'package:macska_match/widgets/popup.dart';
-import 'package:macska_match/widgets/retry_button.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:macska_match/ui/popups/popup.dart';
+
+import '../../../widgets/missing_content.dart';
+import '../../../widgets/retry_button.dart';
+import '../random_cat_bloc.dart';
 
 class CatPicture extends StatelessWidget {
   const CatPicture({Key? key}) : super(key: key);
