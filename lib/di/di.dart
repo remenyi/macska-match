@@ -8,6 +8,7 @@ import '../domain/interactors/cat_interactor.dart';
 import '../ui/pages/cats_view_page/cats_view_bloc.dart';
 import '../ui/pages/cats_view_page/widgets/cat_list_element_bloc.dart';
 import '../ui/pages/home_page/random_cat_bloc.dart';
+import '../ui/pages/home_page/widgets/swipe_bloc.dart';
 
 final injector = GetIt.instance;
 
@@ -26,4 +27,5 @@ void initDependencies() {
   injector.registerFactory(() => RandomCatBloc(injector<CatInteractor>()));
   injector.registerFactory(() => CatsViewBloc(injector<CatInteractor>()));
   injector.registerFactory(() => CatListElementBloc(injector<CatInteractor>()));
+  injector.registerFactory(() => SwipeBloc(injector<CatInteractor>()));
 }

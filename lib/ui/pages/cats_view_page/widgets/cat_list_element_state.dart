@@ -19,26 +19,38 @@ class CatListElementLoading extends CatListElementState {
   CatListElementLoading._();
 }
 
-class CatListElementContentReady extends CatListElementState {
+class CatListElementContentReady extends CatListElementState with EquatableMixin {
   final Cat cat;
 
   CatListElementContentReady(this.cat);
+
+  @override
+  List<Object?> get props => [cat];
 }
 
-class CatListElementDeleted extends CatListElementState {
+class CatListElementDeleted extends CatListElementState with EquatableMixin {
   final int index;
 
   CatListElementDeleted(this.index);
+
+  @override
+  List<Object?> get props => [index];
 }
 
-class CatListElementGetError extends CatListElementState {
+class CatListElementGetError extends CatListElementState with EquatableMixin {
   final String error;
 
   CatListElementGetError(this.error);
+
+  @override
+  List<Object?> get props => [error];
 }
 
-class CatListElementDeleteError extends CatListElementState {
+class CatListElementDeleteError extends CatListElementState with EquatableMixin {
   final String error;
 
   CatListElementDeleteError(this.error);
+
+  @override
+  List<Object?> get props => [error];
 }

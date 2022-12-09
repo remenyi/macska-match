@@ -29,7 +29,6 @@ class RandomCatBloc extends Bloc<RandomCatEvent, RandomCatState> {
       (event, emit) async {
         try {
           await _catInteractor.likeCat(event.cat);
-          emit(RandomCatInitial());
         } catch (e, s) {
           emit(LikeRandomCatError(s.toString()));
         }
@@ -40,7 +39,6 @@ class RandomCatBloc extends Bloc<RandomCatEvent, RandomCatState> {
       (event, emit) async {
         try {
           await _catInteractor.dislikeCat(event.cat);
-          emit(RandomCatInitial());
         } catch (e, s) {
           emit(DislikeRandomCatError(s.toString()));
         }

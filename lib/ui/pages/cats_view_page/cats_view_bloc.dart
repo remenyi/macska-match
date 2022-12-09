@@ -15,6 +15,10 @@ class CatsViewBloc extends Bloc<CatsViewEvent, CatsViewState> {
   CatsViewBloc(this._catInteractor) : super(CatsViewInitial()) {
     on<CatsViewEvent>(
       (event, emit) async {
+        if (event is CatListEmptiedEvent) {
+          emit(CatsViewEmpty());
+          return;
+        }
         emit(CatsViewLoading());
         try {
           final catUris = event.runtimeType == GetDislikedCatsEvent

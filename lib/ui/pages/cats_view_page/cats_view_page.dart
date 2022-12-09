@@ -96,9 +96,7 @@ class CatsViewPage extends StatelessWidget {
                       },
                       child: CatList(
                         catUriList: catUris.toList(),
-                        onEmptyEvent: () => catsViewType == CatsViewType.disliked
-                            ? BlocProvider.of<CatsViewBloc>(context).add(GetDislikedCatsEvent())
-                            : BlocProvider.of<CatsViewBloc>(context).add(GetLikedCatsEvent()),
+                        onEmptyEvent: () => BlocProvider.of<CatsViewBloc>(context).add(CatListEmptiedEvent()),
                       ),
                     ),
                   );

@@ -18,3 +18,11 @@ class GetDislikedCatsEvent extends CatsViewEvent {
 
   GetDislikedCatsEvent._();
 }
+
+class CatListEmptiedEvent extends CatsViewEvent {
+  static final CatListEmptiedEvent _instance = CatListEmptiedEvent._();
+
+  factory CatListEmptiedEvent() => _instance;
+
+  CatListEmptiedEvent._();
+}

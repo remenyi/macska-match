@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:macska_match/ui/pages/cats_view_page/cats_view_bloc.dart';
 import 'package:macska_match/ui/popups/popup.dart';
 
 import '../../../../di/di.dart';
@@ -9,11 +10,24 @@ import '../../../curves/custom_popup_curve.dart';
 import '../../../widgets/retry_button.dart';
 import 'cat_list_element_bloc.dart';
 
-class CatList extends StatelessWidget {
+class CatList extends StatefulWidget {
   final List<CatUriModel> catUriList;
   final Function() onEmptyEvent;
 
   const CatList({super.key, required this.catUriList, required this.onEmptyEvent});
+
+  @override
+  State<CatList> createState() => _CatListState();
+}
+
+class _CatListState extends State<CatList> {
+  late final List<CatUriModel> _catUriList;
+
+  @override
+  void initState() {
+    super.initState();
+    _catUriList = widget.catUriList;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,21 +35,15 @@ class CatList extends StatelessWidget {
 
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: catUriList.length,
+      itemCount: _catUriList.length,
       physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       itemBuilder: (context, index) {
         return BlocProvider(
+          key: ValueKey<CatUriModel>(_catUriList[index]),
           create: (context) => injector<CatListElementBloc>(),
           child: BlocListener<CatListElementBloc, CatListElementState>(
             listener: (context, state) {
               switch (state.runtimeType) {
-                case CatListElementDeleted:
-                  final index = (state as CatListElementDeleted).index;
-                  catUriList.removeAt(index);
-                  if (catUriList.isEmpty) {
-                    onEmptyEvent();
-                  }
-                  break;
                 case CatListElementDeleteError:
                   final details = (state as CatListElementDeleteError).error;
                   context.showErrorPopup(
@@ -46,8 +54,10 @@ class CatList extends StatelessWidget {
               }
             },
             child: CatCard(
-              catUri: catUriList.elementAt(index),
+              key: Key(index.toString()),
+              catUriList: _catUriList,
               index: index,
+              parentSetState: setState,
             ),
           ),
         );
@@ -57,36 +67,44 @@ class CatList extends StatelessWidget {
 }
 
 class CatCard extends StatefulWidget {
-  final CatUriModel catUri;
+  final List<CatUriModel> catUriList;
   final int index;
+  // This is an antipattern, however this was the only solution I could find.
+  // The Dismissible widget needs to delete its item immediately from its list. This means
+  // that firing a bloc event is insufficient in this case, we have to delete the CatUriModel in place.
+  // Because the CatUriModel list gets shorter, we need to refresh the parent page.
+  final Function(Function()) parentSetState;
 
-  const CatCard({Key? key, required this.catUri, required this.index}) : super(key: key);
+  const CatCard({Key? key, required this.catUriList, required this.index, required this.parentSetState})
+      : super(key: key);
 
   @override
   State<CatCard> createState() => _CatCardState();
 }
 
 class _CatCardState extends State<CatCard> {
-  late bool isExpanded;
-
-  @override
-  void initState() {
-    super.initState();
-    isExpanded = false;
-  }
+  bool isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height / 4;
     final heightExpanded = MediaQuery.of(context).size.height / 2;
-    return Dismissible(
-      key: Key(widget.index.toString()),
-      onDismissed: (direction) =>
-          BlocProvider.of<CatListElementBloc>(context).add(DeleteCatListElementEvent(widget.catUri, widget.index)),
-      child: GestureDetector(
-        onTap: () => setState(() {
-          isExpanded = !isExpanded;
-        }),
+    return GestureDetector(
+      onTap: () => setState(() {
+        isExpanded = !isExpanded;
+      }),
+      child: Dismissible(
+        key: ValueKey<CatUriModel>(widget.catUriList[widget.index]),
+        onDismissed: (direction) {
+          BlocProvider.of<CatListElementBloc>(context)
+              .add(DeleteCatListElementEvent(widget.catUriList[widget.index], widget.index));
+          if (widget.catUriList.length == 1) {
+            BlocProvider.of<CatsViewBloc>(context).add(CatListEmptiedEvent());
+          }
+          widget.parentSetState(() {
+            widget.catUriList.removeAt(widget.index);
+          });
+        },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: Card(
@@ -108,7 +126,8 @@ class _CatCardState extends State<CatCard> {
 
                         switch (state.runtimeType) {
                           case CatListElementInitial:
-                            BlocProvider.of<CatListElementBloc>(context).add(GetCatListElementEvent(widget.catUri));
+                            BlocProvider.of<CatListElementBloc>(context)
+                                .add(GetCatListElementEvent(widget.catUriList[widget.index]));
                             return Container(
                               height: isExpanded ? heightExpanded : height,
                             );
@@ -142,7 +161,7 @@ class _CatCardState extends State<CatCard> {
                                   const Spacer(),
                                   RetryButton(
                                     onPressed: () => BlocProvider.of<CatListElementBloc>(context)
-                                        .add(GetCatListElementEvent(widget.catUri)),
+                                        .add(GetCatListElementEvent(widget.catUriList[widget.index])),
                                   ),
                                   const Spacer(flex: 4),
                                 ],
